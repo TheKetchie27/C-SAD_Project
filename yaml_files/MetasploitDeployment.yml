@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metasploit-deployment
+  labels:
+    app: metasploit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metasploit
+  template:
+    metadata:
+      labels:
+        app: metasploit
+    spec:
+      containers:
+      - name: metasploit-container
+        image: metasploitframework/metasploit-framework
+        command: ["tail", "-f", "/dev/null"]  # Keep the container running indefinitely
+        ports:
+        - containerPort: 4444
+      restartPolicy: Always  # Restart the container if it exits

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zeek-mongodb-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: zeek-mongodb
+  template:
+    metadata:
+      labels:
+        app: zeek-mongodb
+    spec:
+      containers:
+        - name: zeek-cont
+          image: zeekeyboy
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_DB_HOSTNAME
+              value: localhost
+            - name: MONGO_DB_USERNAME
+              value: dbadmin
+            - name: MONGO_DB_PASSWORD
+              value: admin@123
+          volumeMounts:
+            - name: shared-vol
+              mountPath: /shared-vol
+        - name: mongodb-cont
+          image: mongo:4.2.13
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: dbadmin
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: admin@123
+          volumeMounts:
+            - name: shared-vol
+              mountPath: /shared-vol
+      volumes:
+        - name: shared-vol
+          hostPath:
+            path: /home/cis/storeLogs  
+            type: DirectoryOrCreate

@@ -1,0 +1,38 @@
+
+creating new pod
+
+naming pod zeek-mariadb-pod
+
+creating containers
+creating first container called zeek-container
+custom zeek image to keep zeek running
+
+
+port for application 
+giving zeek access to database signin (?) 
+
+
+
+
+
+
+where zeek writes the log data inside zeek container 
+
+
+creating database container 
+using mongodb because we saw an example using mongodb 
+we thought was similar to our situation
+application port
+
+database sign in 
+
+
+
+shared volume we create later mounts to this path
+created dir inside mongo container which leads to
+dir in minikube outside the pod 
+
+creating volume
+named shared data in minikube
+
+dir name for logs in minikube
